@@ -3,9 +3,12 @@
 #include <stdexcept>
 #include <vector>
 
+const int MINVAL=48;
+const int MAXVAL=57;
+
 using namespace std;
 namespace zich{
-    Matrix::Matrix(vector<double> m,int row, int col){
+    Matrix::Matrix(vector<double> const &m,int row, int col){
         if(m.size() != row*col || row<1 || col<1){
             throw std::invalid_argument("Matrix doesnt matches the row * col size OR Invalid row/col were entered");
         }
@@ -44,7 +47,7 @@ namespace zich{
         return m1;
     }
     Matrix operator+ (const Matrix& m){
-        Matrix curr(m);
+        Matrix const &curr(m);
         return curr;
     }
 
@@ -207,12 +210,12 @@ namespace zich{
     std::istream& operator>>(std::istream& is,  Matrix& m){
         int row = 0;
         int col = 0;
-        string curr = "";
+        string curr;
         while(!is.eof()){
             string small_data;
             is>>small_data;
             if(small_data[0] == '['){
-                if(small_data[1] < 48 || small_data[1] > 57){
+                if(small_data[1] < MINVAL || small_data[1] > MAXVAL){
                     throw std::invalid_argument("Invalid Matrix enteredA\n");
                 }
             }
@@ -236,10 +239,10 @@ namespace zich{
             row++;
             i++;
             while (curr[i] != ']'){
-                if(curr[i] < 48 || curr[i] > 57){
+                if(curr[i] < MINVAL || curr[i] > MAXVAL){
                     throw std::invalid_argument("Invalid Matrix entered\n");
                 }
-                string value="";
+                string value;
                 value += curr[i];
                 m.mat.push_back(std::stod(value));
                 i++;

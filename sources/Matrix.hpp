@@ -13,7 +13,7 @@ namespace zich
         int col;
         vector<double> mat;
 
-        Matrix(vector<double> m, int row, int col);
+        Matrix(vector<double> const &m, int row, int col);
         Matrix(const Matrix& m);
         ~Matrix();
 
